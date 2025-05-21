@@ -1,9 +1,12 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, Sound } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
+import { Player } from './Player.js'
+import { PlayerShots } from './player-shots.js'
+import { DefaultEnemy } from './default-enemy.js'
 
 export class Game extends Engine {
-
+player
     constructor() {
         super({ 
             width: 1280,
@@ -16,16 +19,36 @@ export class Game extends Engine {
 
     startGame() {
         console.log("start de game!")
-        const fish = new Actor()
-        fish.graphics.use(Resources.Fish.toSprite())
-        fish.pos = new Vector(500, 300)
-        fish.vel = new Vector(-10,0)
-        fish.events.on("exitviewport", (e) => this.fishLeft(e))
-        this.add(fish)
+        const background = new Actor({
+            width: 1280,
+            height: 720,
+            pos: new Vector(640, 360),
+            scale: new Vector(2.4,2.4),
+            anchor: Vector.Half
+        })
+        background.graphics.use(Resources.Background.toSprite())
+        this.add(background)
+        this.spawnNewEnemy()
+        
+        
+        this.player = new Player()
+        this.add(this.player)
     }
 
-    fishLeft(e) {
-        e.target.pos = new Vector(1350, 300)
+    spawnNewEnemy() {
+        const enemy = new DefaultEnemy()
+        this.add(enemy)
+        enemy.on('kill', () => {
+            this.spawnNewEnemy()
+        })
+    }
+    shoot(){
+        const shot = new PlayerShots()
+        shot.pos = this.player.pos.clone()
+        this.add(shot)
+        Resources.PlayerShootingSound.volume = 0.1 
+        Resources.PlayerShootingSound.playbackRate = 2.0 
+        Resources.PlayerShootingSound.play()
     }
 }
 
