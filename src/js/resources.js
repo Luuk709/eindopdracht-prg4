@@ -15,8 +15,12 @@ const Resources = {
     PlayerShotExplosion4: new ImageSource('images/PNG_Animations/Shots/Shot1/shot1_exp3.png'),
     PlayerShotExplosion5: new ImageSource('images/PNG_Animations/Shots/Shot1/shot1_exp4.png'),
     PlayerShootingSound: new Sound('sounds/shooting-sound.mp3'),
-    Health: new ImageSource ('images/healtbar.png'),
+    Health: new ImageSource('images/healtbar.png'),
     DefaultEnemy: new ImageSource('images/PNG_Parts&Spriter_Animation/Ship2/Ship2.png'),
+    Meteor1: new ImageSource('images/meteors/Meteor_01.png'),
+    Meteor2: new ImageSource('images/meteors/Meteor_02.png'),
+    Meteor3: new ImageSource('images/meteors/Meteor_03.png'),
+    Meteor4: new ImageSource('images/meteors/Meteor_04.png'),
 
 }
 

@@ -6,6 +6,7 @@ import { Player } from './player.js'
 import { PlayerShots } from './player-shots.js'
 import { Health } from './health.js'
 import { PlayerExhaust } from './player-exhaust.js'
+
 import { Spawner } from './spawner.js'
 
 export class Game extends Engine {
@@ -22,9 +23,10 @@ export class Game extends Engine {
 
     startGame() {
         console.log("start de game!")
-        const background = new Background()
+        const background = new Background(640)
         this.add(background)
-
+        const background2 = new Background(1920)
+        this.add(background2)   
 
 
 
