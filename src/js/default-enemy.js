@@ -5,7 +5,6 @@ export class DefaultEnemy extends Actor {
         super({
             width: 90,
             height: 40,
-            pos: new Vector(1440, Math.random() * 700 + 20),
             vel: new Vector(-160,0),
         });
         this.speed = 200;
@@ -15,9 +14,9 @@ export class DefaultEnemy extends Actor {
         this.graphics.use(Resources.DefaultEnemy.toSprite());
         this.graphics.flipHorizontal = true;
     }
-    hit(shot){
+    hit(){
+        console.log('aaa')
         this.kill()
-        shot.kill()
     }
 
 }
