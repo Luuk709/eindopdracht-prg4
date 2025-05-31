@@ -1,4 +1,4 @@
-import { Actor, Engine, Vector } from "excalibur"
+import { Actor, Engine, Vector, Animation, AnimationStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 export class PlayerExhaust extends Actor {
     pos
@@ -8,7 +8,17 @@ export class PlayerExhaust extends Actor {
     }
 
     onInitialize(engine) {
-        this.graphics.use(Resources.PlayerExhaust.toSprite())
+        // Exhaust animation frames (adjust paths if needed)
+        const exhaustAnimation = new Animation({
+            frames: [
+                { graphic: Resources.PlayerExhaust.toSprite(), duration: 80 },
+                // Add more frames if you have them, e.g.:
+                // { graphic: Resources.PlayerExhaust2.toSprite(), duration: 80 },
+                // { graphic: Resources.PlayerExhaust3.toSprite(), duration: 80 },
+            ],
+            strategy: AnimationStrategy.Loop
+        })
+        this.graphics.use(exhaustAnimation)
     }
 
     onPreUpdate(engine) {

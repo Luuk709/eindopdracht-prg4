@@ -15,7 +15,7 @@ export class Background extends Actor {
     }
      onPreUpdate(engine) {
         if (this.pos.x < -640) {
-            this.pos.x += 1280 * 2
+            this.pos.x = 1280 *2
         }
     }
 }

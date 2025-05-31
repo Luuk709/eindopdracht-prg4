@@ -9,6 +9,8 @@ export class Player extends Actor {
         });
         this.speed = 233;
         this.health = 3;
+        this.shootCooldown = 0; // cooldown timer in ms
+        this.shootCooldownTime = 300; // 300ms between shots
     }
 
     onInitialize(engine) {
@@ -21,7 +23,7 @@ export class Player extends Actor {
     })
     }
 
-    onPreUpdate(engine) {
+    onPreUpdate(engine, delta) {
         let xspeed = 0;
         let yspeed = 0
         if (engine.input.keyboard.isHeld(Keys.Left) && !engine.input.keyboard.isHeld(Keys.Right) && this.pos.x > 30) {
@@ -36,8 +38,12 @@ export class Player extends Actor {
         if (engine.input.keyboard.isHeld(Keys.Down) && !engine.input.keyboard.isHeld(Keys.Up) && this.pos.y < 700) {
             yspeed = this.speed;
         }
-        if (engine.input.keyboard.wasPressed(Keys.Space)) {
+        if (this.shootCooldown > 0) {
+            this.shootCooldown -= delta;
+        }
+        if (engine.input.keyboard.wasPressed(Keys.Space) && this.shootCooldown <= 0) {
             this.scene.engine.shoot()
+            this.shootCooldown = this.shootCooldownTime;
         }
         this.vel = new Vector(xspeed, yspeed);
     }
