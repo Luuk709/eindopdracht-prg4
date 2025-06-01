@@ -14,8 +14,8 @@ export class Background extends Actor {
         this.anchor = Vector.Half
     }
      onPreUpdate(engine) {
-        if (this.pos.x < -640) {
-            this.pos.x = 1280 *2
+        if (this.pos.x < -1040) {
+            this.pos.x = 1280 *1.8
         }
     }
 }

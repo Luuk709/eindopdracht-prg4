@@ -1,29 +1,41 @@
 import { Actor, Engine, Vector, Animation, AnimationStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 export class PlayerExhaust extends Actor {
-    pos
+    #normalAnimation = null
+    #turboAnimation = null
     constructor() {
         super({
+            pos: new Vector(-30, 0) 
         })
     }
 
     onInitialize(engine) {
-        // Exhaust animation frames (adjust paths if needed)
-        const exhaustAnimation = new Animation({
+        this.#normalAnimation = new Animation({
             frames: [
-                { graphic: Resources.PlayerExhaust.toSprite(), duration: 80 },
-                // Add more frames if you have them, e.g.:
-                // { graphic: Resources.PlayerExhaust2.toSprite(), duration: 80 },
-                // { graphic: Resources.PlayerExhaust3.toSprite(), duration: 80 },
+                { graphic: Resources.PlayerExhaust1.toSprite(), duration: 80 },
+                { graphic: Resources.PlayerExhaust2.toSprite(), duration: 80 },
+                { graphic: Resources.PlayerExhaust3.toSprite(), duration: 80 },
+                { graphic: Resources.PlayerExhaust4.toSprite(), duration: 80 },
             ],
             strategy: AnimationStrategy.Loop
         })
-        this.graphics.use(exhaustAnimation)
+        this.#turboAnimation = new Animation({
+            frames: [
+                { graphic: Resources.PlayerExhaustTurbo1.toSprite(), duration: 60 },
+                { graphic: Resources.PlayerExhaustTurbo2.toSprite(), duration: 60 },
+                { graphic: Resources.PlayerExhaustTurbo3.toSprite(), duration: 60 },
+                { graphic: Resources.PlayerExhaustTurbo4.toSprite(), duration: 60 },
+            ],
+            strategy: AnimationStrategy.Loop
+        })
+        this.graphics.use(this.#normalAnimation)
     }
 
-    onPreUpdate(engine) {
-
-            this.pos = this.parent.pos.add(new Vector(-100, 0))
-        
+    setTurbo(on) {
+        if (on) {
+            this.graphics.use(this.#turboAnimation)
+        } else {
+            this.graphics.use(this.#normalAnimation)
+        }
     }
 }

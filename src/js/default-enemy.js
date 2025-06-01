@@ -1,13 +1,13 @@
 import { Actor, Engine, Vector, Animation, AnimationStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 export class DefaultEnemy extends Actor {
+    #speed = 200;
     constructor() {
         super({
             width: 90,
             height: 40,
             vel: new Vector(Math.random()* 30 - 180,0),
         });
-        this.speed = 200;
     }
 
     onInitialize(engine) {
@@ -31,6 +31,7 @@ export class DefaultEnemy extends Actor {
         this.addChild(exhaust)
     }
     hit(){
+        this.scene.engine.addScore()
         console.log('aaa')
         this.kill()
     }

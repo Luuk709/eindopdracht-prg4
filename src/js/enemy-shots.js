@@ -21,11 +21,9 @@ export class EnemyShots extends Actor {
             ],
         })
         this.graphics.use(shotAnimation)
-
     }
 
-    onPreUpdate(engine) {
-    }
+    onPreUpdate(engine) {}
     hit(){
         this.kill()
     }

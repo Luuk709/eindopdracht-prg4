@@ -9,8 +9,5 @@ export class Health extends Actor {
 
     onInitialize(engine) {
         this.graphics.use(Resources.Health.toSprite())
-        
     }
-
-
 }

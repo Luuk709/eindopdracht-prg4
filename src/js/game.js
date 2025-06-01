@@ -6,11 +6,12 @@ import { Player } from './player.js'
 import { PlayerShots } from './player-shots.js'
 import { Health } from './health.js'
 import { PlayerExhaust } from './player-exhaust.js'
-
+import { UI } from './ui.js'
 import { Spawner } from './spawner.js'
 
 export class Game extends Engine {
     player
+    score = 0
     constructor() {
         super({
             width: 1280,
@@ -35,6 +36,8 @@ export class Game extends Engine {
 
         const spawner = new Spawner(this)
         this.add(spawner)
+    
+
 
         this.hitpoints = [
             new Health(),
@@ -45,10 +48,14 @@ export class Game extends Engine {
             health.pos = new Vector(40 + i * 50, 40)
             this.add(health)
         })
+        const ui = new UI()
+        this.add(ui)
+        this.ui = ui
 
 
         const playerExhaust = new PlayerExhaust()
         this.player.addChild(playerExhaust)
+        this.player.exhaust = playerExhaust
     }
 
     shoot() {
@@ -58,6 +65,10 @@ export class Game extends Engine {
         Resources.PlayerShootingSound.volume = 0.1
         Resources.PlayerShootingSound.playbackRate = 2.0
         Resources.PlayerShootingSound.play()
+    }
+    addScore() {
+        this.score ++
+            this.ui.updateScore(this.score)
     }
 }
 

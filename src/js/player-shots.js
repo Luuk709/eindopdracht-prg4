@@ -11,7 +11,6 @@ export class PlayerShots extends Actor {
         });
     }
 
-
     onInitialize(engine) {
         const shotAnimation = new Animation({
             frames: [
@@ -46,6 +45,5 @@ export class PlayerShots extends Actor {
         })
     }
 
-    onPreUpdate(engine) {
-    }
+    onPreUpdate(engine) {}
 }

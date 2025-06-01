@@ -2,11 +2,13 @@ import { Actor, Timer, Vector } from "excalibur"
 import { DefaultEnemy } from "./default-enemy.js"
 import { Meteor1 } from './meteor1.js'
 import { ShootingEnemy } from "./shooting-enemy.js"
+import { HealthPowerup } from "./health-powerup.js"
 export class Spawner extends Actor {
+    #timesCalled = 0;
+    game;
     constructor(game) {
         super()
         this.game = game
-        this.timesCalled = 0
     }
 
     onInitialize(engine) {
@@ -20,8 +22,8 @@ export class Spawner extends Actor {
     }
 
     spawnEnemyPattern() {
-        this.timesCalled++
-        if (this.timesCalled < 5) {
+        this.#timesCalled++
+        if (this.#timesCalled < 5) {
             for (let i = 0; i < (Math.random() * 3); i++) {
                 this.spawnDefaultEnemy()
                 this.spawnMeteor()
@@ -31,6 +33,7 @@ export class Spawner extends Actor {
                 this.spawnDefaultEnemy()
                 this.spawnMeteor()
                 this.spawnShootingEnemy()
+                this.spawnPowerup()
             }
         }
 
@@ -52,5 +55,11 @@ export class Spawner extends Actor {
         }
         
 
+    }
+    spawnPowerup(){
+         if(Math.floor(Math.random() * 25) === 1){
+            const healthPack = new HealthPowerup()
+            this.game.add(healthPack)
+        }
     }
 }
